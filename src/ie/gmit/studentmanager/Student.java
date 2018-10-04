@@ -4,6 +4,7 @@ import java.util.*;			//import for date object
 
 public class Student {
 	//Instance variables
+	private String studentId;	//student id
 	private String firstName;	//student first name
 	private String lastName;	//student last name
 	private int age;			//student age
@@ -12,7 +13,8 @@ public class Student {
 	private Course course;		//student course;
 	
 	//Constructor
-	public Student(String fname, String lname, Date dob, int age) {
+	public Student(String studentId, String fname, String lname, Date dob, int age) {
+		this.studentId = studentId;
 		this.firstName = fname;
 		this.lastName = lname;
 		this.dob = dob;
@@ -20,6 +22,22 @@ public class Student {
 	}
 	
 	//Getter/Setter methods
+	/**
+	 * Gets the student's student Id
+	 * @return studentId
+	 */
+	public String getStudentId() {
+		return studentId;
+	}
+
+	/**
+	 * Sets the student's student id
+	 * @param studentId
+	 */
+	public void setStudentId(String studentId) {
+		this.studentId = studentId;
+	}
+
 	/**
 	 * Gets the student's first name
 	 * @return firstName
