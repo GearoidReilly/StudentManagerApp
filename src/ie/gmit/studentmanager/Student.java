@@ -13,12 +13,11 @@ public class Student {
 	private Course course;		//student course;
 	
 	//Constructor
-	public Student(String studentId, String fname, String lname, Date dob, int age) {
+	public Student(String studentId, String fname, String lname, Date dob) {
 		this.studentId = studentId;
 		this.firstName = fname;
 		this.lastName = lname;
 		this.dob = dob;
-		this.age = age;
 	}
 	
 	//Getter/Setter methods
