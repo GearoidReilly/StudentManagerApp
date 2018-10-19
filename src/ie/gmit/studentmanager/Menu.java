@@ -153,7 +153,7 @@ public class Menu {
 	private void searchByNameMenu() {
 		//Prompt user to input a student name
 		System.out.println("Input student name:");
-		String sName = userInput.nextLine();
+		String sName = userInput.next();
 		
 		//Student list variable for storing the search result
 		List<Student> foundStudents = sm.getStudentsByFirstName(sName);
@@ -161,7 +161,7 @@ public class Menu {
 		//Check if we found any students with the same name
 		if(foundStudents != null) {
 			//Return the list of found students
-			System.out.println("Found " + foundStudents.size() + " with the name " + sName + "!");
+			System.out.println("Found " + foundStudents.size() + " students with the name " + sName + "!");
 		}
 		else {
 			//Tell the user no students were found with that name
