@@ -20,6 +20,8 @@ public class Menu {
 	 * Starts the student manager which displays options to the user
 	 */
 	public void start() {
+		//Introduce the user to the student manager
+		System.out.println("Welcome to the Student Manager.");
 		
 		//While the menu is running
 		while(keepRunning) {
@@ -41,7 +43,7 @@ public class Menu {
 	 */
 	private void showOptions() {
 		//Prints out lines to the console giving options to the user
-		System.out.println("Welcome to the StudentManager: here is a list of options:");
+		System.out.println("List of options:");
 		System.out.println("(1) Add a Student");
 		System.out.println("(2) Delete a Student");
 		System.out.println("(3) Search for a Student by ID");
