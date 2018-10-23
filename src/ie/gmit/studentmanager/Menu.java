@@ -5,16 +5,21 @@ import java.util.*;
 public class Menu {
 	private Scanner userInput;			//Menu user input
 	private StudentManager sm;			//Student manager
-	private boolean keepRunning = true;	//Bool to keep the menu runner
+	private boolean keepRunning;	//Bool to keep the menu runner
 	
-	/**
-	 * Starts the student manager which displays options to the user
-	 */
-	public void start() {
+	//Menu Constructor
+	public Menu() {
 		//Create a new scanner object to take input
 		userInput = new Scanner(System.in);
 		//Create a student Manager object
 		sm = new StudentManager();
+		//Set keepRunning to true
+		keepRunning = true;
+	}
+	/**
+	 * Starts the student manager which displays options to the user
+	 */
+	public void start() {
 		
 		//While the menu is running
 		while(keepRunning) {
@@ -24,33 +29,10 @@ public class Menu {
 			//Convert userInput to int
 			int userMenuOption = userInput.nextInt();
 			
-			if(userMenuOption == 1) {
-				//Opens the addMenu
-				addMenu();
-			}
-			else if(userMenuOption == 2) {
-				//Opens the deleteMenu
-				deleteMenu();
-			}
-			else if(userMenuOption == 3) {
-				//Opens the searchByIdMenu
-				searchByIdMenu();
-			}
-			else if(userMenuOption == 4) {
-				//Open the searchByNameMenu
-				searchByNameMenu();
-			}
-			else if(userMenuOption == 5) {
-				//Open the searchTotalMenu
-				showTotalMenu();
-			}
-			else if(userMenuOption == 6) {
-				//Quits from the menu
-				quit();
-			}
-			else {
-				System.out.println("Invalid input, please enter a number between 1 - 6");
-			}
+			//Select a menu option based on input
+			selectOption(userMenuOption);
+			//Tell user to pres enter to continue
+			pressEnterKeyToContinue();
 		}
 	}
 	
@@ -67,6 +49,40 @@ public class Menu {
 		System.out.println("(5) Show total number of Students");
 		System.out.println("(6) Quit");
 		System.out.println("Select an option [1-6]>");
+	}
+	
+	/**
+	 * Select a menu option based on user input
+	 * @param inputOption Option to select
+	 */
+	private void selectOption(int inputOption) {
+		if(inputOption == 1) {
+			//Opens the addMenu
+			addMenu();
+		}
+		else if(inputOption == 2) {
+			//Opens the deleteMenu
+			deleteMenu();
+		}
+		else if(inputOption == 3) {
+			//Opens the searchByIdMenu
+			searchByIdMenu();
+		}
+		else if(inputOption == 4) {
+			//Open the searchByNameMenu
+			searchByNameMenu();
+		}
+		else if(inputOption == 5) {
+			//Open the searchTotalMenu
+			showTotalMenu();
+		}
+		else if(inputOption == 6) {
+			//Quits from the menu
+			quit();
+		}
+		else {
+			System.out.println("Invalid input, please enter a number between 1 - 6");
+		}
 	}
 	
 	/**
@@ -140,6 +156,8 @@ public class Menu {
 			//Return the student Id again to the user saying we found it
 			//More functionality will be added later...maybe
 			System.out.println("Student " + searchResult.getStudentId() + " found!");
+			//Print student details
+			System.out.println(searchResult);
 		}
 		else {
 			//Tell the user no student id was found
@@ -162,6 +180,7 @@ public class Menu {
 		if(foundStudents != null) {
 			//Return the list of found students
 			System.out.println("Found " + foundStudents.size() + " students with the name " + sName + "!");
+			System.out.println(foundStudents);
 		}
 		else {
 			//Tell the user no students were found with that name
@@ -188,6 +207,18 @@ public class Menu {
 		keepRunning = false;
 		
 		//Close the scanner
-		userInput.close();
+		//userInput.close();
 	}
+	
+	/**
+	 * Prompts user to press the enter key before continuing
+	 */
+    private void pressEnterKeyToContinue() { 
+           System.out.println("\nPress Enter key to continue...\n");
+           try {
+               System.in.read();
+           } catch(Exception e) {
+        	   e.printStackTrace();
+           }  
+    }
 }
