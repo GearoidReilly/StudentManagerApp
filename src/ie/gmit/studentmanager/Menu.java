@@ -159,7 +159,9 @@ public class Menu {
 			//More functionality will be added later...maybe
 			System.out.println("Student " + searchResult.getStudentId() + " found!");
 			//Print student details
-			System.out.println(searchResult);
+			System.out.println("Student ID: " + searchResult.getStudentId());
+			System.out.println("Student ID: " + searchResult.getFirstName());
+			System.out.println("Student ID: " + searchResult.getLastName());
 		}
 		else {
 			//Tell the user no student id was found
