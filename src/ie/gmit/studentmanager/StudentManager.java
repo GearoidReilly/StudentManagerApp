@@ -28,8 +28,9 @@ public class StudentManager {
 		}
 		//If there's an error
 		catch(Exception error) {
-			//
-		
+			//Print the error
+			error.printStackTrace();
+			
 			//Return false
 			return false;
 		}
