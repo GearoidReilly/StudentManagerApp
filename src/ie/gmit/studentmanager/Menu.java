@@ -80,7 +80,14 @@ public class Menu {
 		}
 		else if(inputOption == 6) {
 			//Quits from the menu
-			quit();
+			//Inform the user the menu manager is closing
+			System.out.println("Quitting Student Manager...");
+			
+			//Menu is no longer running
+			keepRunning = false;
+			
+			//Close the scanner
+			//userInput.close();
 		}
 		else {
 			System.out.println("Invalid input, please enter a number between 1 - 6");
@@ -198,20 +205,6 @@ public class Menu {
 	private void showTotalMenu() {
 		//Prints a line and returning the total number students
 		System.out.println("Total students: " + sm.findTotalStudents());
-	}
-	
-	/**
-	 * Opens the input to delete a student
-	 */
-	private void quit() {
-		//Inform the user the menu manager is closing
-		System.out.println("Quitting Student Manager...");
-		
-		//Menu is no longer running
-		keepRunning = false;
-		
-		//Close the scanner
-		//userInput.close();
 	}
 	
 	/**
