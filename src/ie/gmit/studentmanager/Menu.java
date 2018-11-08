@@ -87,7 +87,7 @@ public class Menu {
 			keepRunning = false;
 			
 			//Close the scanner
-			//userInput.close();
+			userInput.close();
 		}
 		else {
 			System.out.println("Invalid input, please enter a number between 1 - 6");
@@ -191,7 +191,6 @@ public class Menu {
 		if(foundStudents != null) {
 			//Return the list of found students
 			System.out.println("Found " + foundStudents.size() + " students with the name " + sName + "!");
-			System.out.println(foundStudents);
 		}
 		else {
 			//Tell the user no students were found with that name
@@ -210,12 +209,14 @@ public class Menu {
 	/**
 	 * Prompts user to press the enter key before continuing
 	 */
-    private void pressEnterKeyToContinue() { 
-           System.out.println("\nPress Enter key to continue...\n");
-           try {
-               System.in.read();
-           } catch(Exception e) {
-        	   e.printStackTrace();
-           }  
+    private void pressEnterKeyToContinue() {
+    	if(keepRunning) {
+    		System.out.println("\nPress Enter key to continue...\n");
+            try {
+         	   System.in.read(); 
+            } catch(Exception e) {
+         	   e.printStackTrace();
+            }
+    	}
     }
 }
