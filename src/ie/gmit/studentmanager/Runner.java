@@ -17,20 +17,25 @@ public class Runner extends Application{
 	//Scene variables
 	Scene mainScene;
 	Scene addStudentScene;
+	//Insets variable
+	Insets borderPadding = new Insets(10, 10, 10, 10);
 	
 	//Overrides start function in application
 	@Override
 	public void start(Stage primaryStage) throws Exception{
+		//Create secondary stage
+		Stage secondaryStage = new Stage();
+				
 		/* Main Scene features */
 		//Create header text
-		Text headerText = new Text("Welcome to the Student Manager \n Select one of the options below");
+		Text headerText = new Text("Welcome to the Student Manager. \n Select one of the options below:");
 		//Create output text
 		TextArea outputText = new TextArea();
 		
 		//Create grid pane to hold items in the scene
 		GridPane mainGridPane = new GridPane();
 		//Set padding on the scene
-		mainGridPane.setPadding(new Insets(10, 10, 10, 10));
+		mainGridPane.setPadding(borderPadding);
 		//Set spacing between objects on the main grid pane
 		mainGridPane.setHgap(30);
 		mainGridPane.setVgap(30);
@@ -38,6 +43,8 @@ public class Runner extends Application{
 		/* Add student functionality */
 		//Create addButton
 		Button addButton = new Button("Add Student");
+		//Add functionality to button to open secondary stage
+		addButton.setOnAction(event -> secondaryStage.show());
 		
 		/* Delete student functionality */
 		//Create deleteButton
@@ -70,6 +77,11 @@ public class Runner extends Application{
 		/* Quit functionality */
 		//Create quitButton
 		Button quitButton = new Button("Quit Student Manager");
+		//Add functionality to quit Student Manager
+		quitButton.setOnAction(event ->{
+			primaryStage.close();
+			secondaryStage.close();
+		});
 		
 		//Adds content to the mainGridPane
 		mainGridPane.add(headerText, 0, 0);
@@ -88,7 +100,7 @@ public class Runner extends Application{
 		mainGridPane.add(outputText, 0, 7, 3, 1);
 		
 		//Adds values to the mainStage
-		mainScene = new Scene(mainGridPane, 1000, 900);
+		mainScene = new Scene(mainGridPane, 700, 600);
 		
 		//Set the title to primary stage
 		primaryStage.setTitle("Student Manager");
@@ -96,6 +108,49 @@ public class Runner extends Application{
 		primaryStage.setScene(mainScene);
 		//Shows the primary stage
 		primaryStage.show();
+		
+		
+		/* Add Student Scene Features */
+		//Create header text
+		Text secondHeaderText = new Text("Enter student details");
+		//Create output text
+		TextArea secondOutputText = new TextArea();
+		//Create Labels
+		Label sidLabel = new Label("Enter Student Id:");
+		Label fnameLabel = new Label("Enter First Name:");
+		Label lnameLabel = new Label("Enter Last Name:");
+		Label dobLabel = new Label("Enter date of birth:");
+		//Create Input fields
+		TextField sidText = new TextField();
+		TextField fnameText = new TextField();
+		TextField lnameText = new TextField();
+		DatePicker dobPicker = new DatePicker();
+		
+		//Create second grid pane to hold items in the scene
+		GridPane studentGridPane = new GridPane();
+		//Set Padding
+		studentGridPane.setPadding(borderPadding);
+		//Set spacing between content
+		studentGridPane.setHgap(10);
+		studentGridPane.setVgap(10);
+		
+		//Add content to the student grid pane
+		studentGridPane.add(secondHeaderText, 0, 0);
+		studentGridPane.add(sidLabel, 0, 1);
+		studentGridPane.add(sidText, 1, 1);
+		studentGridPane.add(fnameLabel, 0, 2);
+		studentGridPane.add(fnameText, 1, 2);
+		studentGridPane.add(lnameLabel, 0, 3);
+		studentGridPane.add(lnameText, 1, 3);
+		studentGridPane.add(dobLabel, 0, 4);
+		studentGridPane.add(dobPicker, 1, 4);
+		studentGridPane.add(secondOutputText, 0, 5, 2, 1);
+		
+		//Add values to add student stage
+		addStudentScene = new Scene(studentGridPane, 500, 500);
+		//Assign scene to secondary stage
+		secondaryStage.setScene(addStudentScene);
+		
 	}
 	
 	public static void main(String[] args) {
