@@ -157,8 +157,25 @@ public class Runner extends Application{
 				
 				if(checkStudent != null) {
 					//Inform the user that student id already exists
-					errorText += "Student id already exists";
+					errorText += "Student id already exists \n";
 				}
+			}
+			
+			//Check if First name is empty
+			if(fnameValue.isEmpty()) {
+				//Add to error text
+				errorText += "Please enter a First Name \n";
+			}
+			
+			//Check if Second name is empty
+			if(lnameValue.isEmpty()) {
+				//Add to error text
+				errorText += "Please enter a Last Name \n";
+			}
+			
+			//Check if a date has been added
+			if(dobValue == null) {
+				errorText += "Please enter a date \n";
 			}
 			
 			//Check if the error message is not empty
@@ -167,7 +184,7 @@ public class Runner extends Application{
 				secondOutputText.setText(errorText);
 			}else {
 				//Create new student and add it to the student manager
-				Student newStudent = new Student(sidValue);
+				Student newStudent = new Student(sidValue, fnameValue, lnameValue, dobValue);
 				sm.addStudent(newStudent);
 				
 				//Tell the user the student was added successfully
