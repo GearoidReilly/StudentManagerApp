@@ -98,6 +98,14 @@ public class Runner extends Application{
 		/* Show total functionality */
 		//Create showTotalButton
 		Button showTotalButton = new Button("Show total Students");
+		//Add functionality to button to show the total number of students
+		showTotalButton.setOnAction(event ->{
+			//Value to store the number of students
+			int totalStudents = sm.findTotalStudents();
+			
+			//Display total number of students
+			outputText.setText("Total number of students: " + totalStudents);
+		});
 		
 		/* Quit functionality */
 		//Create quitButton
@@ -240,6 +248,8 @@ public class Runner extends Application{
 		addStudentScene = new Scene(studentGridPane, 500, 500);
 		//Assign scene to secondary stage
 		secondaryStage.setScene(addStudentScene);
+		//Set stage title to secondary stage
+		secondaryStage.setTitle("Add Student");
 		
 	}
 	
