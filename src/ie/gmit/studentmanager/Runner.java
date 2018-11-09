@@ -86,6 +86,41 @@ public class Runner extends Application{
 		Label searchByIdLabel = new Label("Enter Student Id:");
 		//Create searchByIdText
 		TextField searchByIdText = new TextField();
+		//Add functionality to button to search for a student
+		searchByIdButton.setOnAction(event ->{
+			//Get value from text field
+			String searchId = searchByIdText.getText().toString();
+			
+			//Check if the string is empty
+			if(searchId.isEmpty()) {
+				//Inform the user they need to enter an id
+				outputText.setText("Please enter a student id to search.");
+			}
+			else {
+				//Find a student with the searchId
+				Student searchStudent = sm.getStudentById(searchId);
+				
+				//If we found a student
+				if(searchStudent != null) {
+					//String to contain student details
+					String resultsText = "";
+					
+					//Add info to results text
+					resultsText += "Student found: \n";
+					resultsText += "Student ID: " + searchStudent.getStudentId() + "\n";
+					resultsText += "First Name: " + searchStudent.getFirstName() + "\n";
+					resultsText += "Last Name " + searchStudent.getLastName() + "\n";
+					resultsText += "Date of Birth: " + searchStudent.getDob() + "\n";
+					
+					//Set the results text to the outputText area
+					outputText.setText(resultsText);
+				}
+				else {
+					//Inform user no student was found
+					outputText.setText("No student found.");
+				}
+			}
+		});
 		
 		/* Search by First Name functionality */
 		//Create searchByNameButton
@@ -152,7 +187,7 @@ public class Runner extends Application{
 		Label sidLabel = new Label("Enter Student Id:");
 		Label fnameLabel = new Label("Enter First Name:");
 		Label lnameLabel = new Label("Enter Last Name:");
-		Label dobLabel = new Label("Enter date of birth:");
+		Label dobLabel = new Label("Enter Date of Birth:");
 		//Create Input fields
 		TextField sidText = new TextField();
 		TextField fnameText = new TextField();
