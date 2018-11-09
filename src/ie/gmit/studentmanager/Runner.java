@@ -53,6 +53,31 @@ public class Runner extends Application{
 		Label deleteLabel = new Label("Enter Student Id:");
 		//Create deleteText
 		TextField deleteText = new TextField();
+		//Add functionality to button to delete student
+		deleteButton.setOnAction(event ->{
+			//Get value in delete student
+			String deleteId = deleteText.getText().toString();
+			
+			//Check if deleteId is empty
+			if(deleteId.isEmpty()) {
+				//Inform the user they need to enter an id
+				outputText.setText("Please enter a student id to delete.");
+			}
+			else {
+				//Boolean to delete student
+				Boolean result = sm.deleteStudent(deleteId);
+				
+				//If the deletion was successful
+				if(result) {
+					//Informs the user the student was deleted
+					outputText.setText("Successfully deleted student: " + deleteId + ".");
+				}
+				else {
+					//Informs user that the student couldn't be deleted
+					outputText.setText("Student couldn't be deleted.");
+				}
+			}
+		});
 		
 		/* Search by Id functionality */
 		//Create searchByIdButton
@@ -150,32 +175,32 @@ public class Runner extends Application{
 			//Check sidValue to make sure it isn't empty and there the student id doesn't already exist
 			if(sidValue.isEmpty()) {
 				//Add to the errorText
-				errorText += "Please enter a student id \n";
+				errorText += "Please enter a student id. \n";
 			}else {
 				//Check if a student with that id exists already
 				Student checkStudent = sm.getStudentById(sidValue);
 				
 				if(checkStudent != null) {
 					//Inform the user that student id already exists
-					errorText += "Student id already exists \n";
+					errorText += "Student id already exists. \n";
 				}
 			}
 			
 			//Check if First name is empty
 			if(fnameValue.isEmpty()) {
 				//Add to error text
-				errorText += "Please enter a First Name \n";
+				errorText += "Please enter a First Name. \n";
 			}
 			
 			//Check if Second name is empty
 			if(lnameValue.isEmpty()) {
 				//Add to error text
-				errorText += "Please enter a Last Name \n";
+				errorText += "Please enter a Last Name. \n";
 			}
 			
 			//Check if a date has been added
 			if(dobValue == null) {
-				errorText += "Please enter a date \n";
+				errorText += "Please enter a date. \n";
 			}
 			
 			//Check if the error message is not empty
