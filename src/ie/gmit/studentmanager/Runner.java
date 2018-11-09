@@ -8,6 +8,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.*;
 import javafx.geometry.*;
 import java.time.*;
+import java.util.*;
 
 //Runner class now inherits from JavaFx Application class
 public class Runner extends Application{
@@ -129,6 +130,31 @@ public class Runner extends Application{
 		Label searchByNameLabel = new Label("Enter First Name:");
 		//Create searchByNameText
 		TextField searchByNameText = new TextField();
+		//Add functionality to button to search students by First name
+		searchByNameButton.setOnAction(event -> {
+			//Get value from text field
+			String searchName = searchByNameText.getText().toString();
+			
+			//Check if the string is empty
+			if(searchName.isEmpty()) {
+				//Inform the user they need to enter a First Name
+				outputText.setText("Please enter a student first name to search.");
+			}
+			else {
+				//Results list
+				List<Student> resultsList = sm.getStudentsByFirstName(searchName);
+				
+				//Check if there are any results
+				if(resultsList != null) {
+					//Inform the user how many students were found
+					outputText.setText("Found " + resultsList.size() + " students with the name " + searchName + ".");
+				}
+				else {
+					//Inform the user no students were found
+					outputText.setText("No students found.");
+				}
+			}
+		});
 		
 		/* Show total functionality */
 		//Create showTotalButton
