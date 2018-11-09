@@ -1,6 +1,6 @@
 package ie.gmit.studentmanager;
 
-import java.util.*;			//import for date object
+import java.time.*;;			//import for local date object
 
 public class Student {
 	//Instance variables
@@ -8,16 +8,17 @@ public class Student {
 	private String firstName;	//student first name
 	private String lastName;	//student last name
 	private int age;			//student age
-	private Date dob;			//student date of birth
+	private LocalDate dob;			//student date of birth
 	private Address address;	//student address
 	private Course course;		//student course;
 	
 	//Constructor
-	public Student(String studentId, String fname, String lname, Date dob) {
+	public Student(String studentId, String fname, String lname, LocalDate dob) {
 		this.studentId = studentId;
 		this.firstName = fname;
 		this.lastName = lname;
 		this.dob = dob;
+		this.age = calculateAge(dob);
 	}
 	
 	//Getter/Setter methods
@@ -89,7 +90,7 @@ public class Student {
 	 * Gets the student's date of birth
 	 * @return dob
 	 */
-	public Date getDob() {
+	public LocalDate getDob() {
 		return dob;
 	}
 	
@@ -97,7 +98,7 @@ public class Student {
 	 * Sets the student's date of birth
 	 * @param dob Student date of birth
 	 */
-	public void setDob(Date dob) {
+	public void setDob(LocalDate dob) {
 		this.dob = dob;
 	}
 	
@@ -131,5 +132,18 @@ public class Student {
 	 */
 	public void setCourse(Course course) {
 		this.course = course;
+	}
+	
+	/**
+	 * Calculates the age based on the difference between the date of birth and the current day
+	 * @param birthDate Date of Birth
+	 * @return period between birthDate and currentDate in years
+	 */
+	public int calculateAge(LocalDate birthDate) {
+		//Gets the current date of the system when the date is being calculated
+		LocalDate currentDate = LocalDate.now();
+		
+		//Return the period difference in years
+		return Period.between(birthDate, currentDate).getYears();
 	}
 }
