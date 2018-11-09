@@ -1,6 +1,7 @@
 package ie.gmit.studentmanager;
 
 import java.util.*;
+import java.time.*;
 
 public class Menu {
 	private Scanner userInput;			//Menu user input
@@ -111,7 +112,7 @@ public class Menu {
 		String lname = userInput.next();
 		
 		//Creates a new date
-		Date dob = new Date();
+		LocalDate dob = LocalDate.now();
 		
 		//Create a new Student object taking user defined variables
 		Student newStudent = new Student(sid, fname, lname, dob);
