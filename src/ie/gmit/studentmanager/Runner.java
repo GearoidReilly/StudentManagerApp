@@ -2,12 +2,12 @@ package ie.gmit.studentmanager;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.*;
 import javafx.geometry.*;
+import java.time.*;
 
 //Runner class now inherits from JavaFx Application class
 public class Runner extends Application{
@@ -125,6 +125,8 @@ public class Runner extends Application{
 		TextField fnameText = new TextField();
 		TextField lnameText = new TextField();
 		DatePicker dobPicker = new DatePicker();
+		//Create submit button
+		Button addStudentButton = new Button("Add student");
 		
 		//Create second grid pane to hold items in the scene
 		GridPane studentGridPane = new GridPane();
@@ -133,6 +135,51 @@ public class Runner extends Application{
 		//Set spacing between content
 		studentGridPane.setHgap(10);
 		studentGridPane.setVgap(10);
+		
+		/* Add student page functionality */
+		addStudentButton.setOnAction(event ->{
+			//Store temporary values for cleaner validation
+			String sidValue = sidText.getText().toString();
+			String fnameValue = fnameText.getText().toString();
+			String lnameValue = lnameText.getText().toString();
+			LocalDate dobValue = dobPicker.getValue();
+			//Error text value
+			String errorText = "";
+			
+			
+			//Check sidValue to make sure it isn't empty and there the student id doesn't already exist
+			if(sidValue.isEmpty()) {
+				//Add to the errorText
+				errorText += "Please enter a student id \n";
+			}else {
+				//Check if a student with that id exists already
+				Student checkStudent = sm.getStudentById(sidValue);
+				
+				if(checkStudent != null) {
+					//Inform the user that student id already exists
+					errorText += "Student id already exists";
+				}
+			}
+			
+			//Check if the error message is not empty
+			if(errorText.length() > 0) {
+				//Print the error message
+				secondOutputText.setText(errorText);
+			}else {
+				//Create new student and add it to the student manager
+				Student newStudent = new Student(sidValue);
+				sm.addStudent(newStudent);
+				
+				//Tell the user the student was added successfully
+				secondOutputText.setText("Student added successfully.");
+				
+				//Clear TextFields
+				sidText.clear();
+				fnameText.clear();
+				lnameText.clear();
+				dobPicker.setValue(null);
+			}
+		});
 		
 		//Add content to the student grid pane
 		studentGridPane.add(secondHeaderText, 0, 0);
@@ -144,7 +191,8 @@ public class Runner extends Application{
 		studentGridPane.add(lnameText, 1, 3);
 		studentGridPane.add(dobLabel, 0, 4);
 		studentGridPane.add(dobPicker, 1, 4);
-		studentGridPane.add(secondOutputText, 0, 5, 2, 1);
+		studentGridPane.add(addStudentButton, 0, 5);
+		studentGridPane.add(secondOutputText, 0, 6, 2, 1);
 		
 		//Add values to add student stage
 		addStudentScene = new Scene(studentGridPane, 500, 500);

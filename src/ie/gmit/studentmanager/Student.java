@@ -21,6 +21,11 @@ public class Student {
 		this.age = calculateAge(dob);
 	}
 	
+	//Simple constructor for testing purposes
+	public Student(String studentId) {
+		this.studentId = studentId;
+	}
+	
 	//Getter/Setter methods
 	/**
 	 * Gets the student's student Id
