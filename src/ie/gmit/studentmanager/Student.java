@@ -1,6 +1,6 @@
 package ie.gmit.studentmanager;
 
-import java.time.*;;			//import for local date object
+import java.time.*;			//import for local date object
 
 public class Student {
 	//Instance variables
