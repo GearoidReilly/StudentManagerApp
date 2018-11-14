@@ -18,6 +18,7 @@ public class Student {
 		this.firstName = fname;
 		this.lastName = lname;
 		this.dob = dob;
+		this.age = calculateAge(dob);
 	}
 	
 	//Simple constructor for testing purposes

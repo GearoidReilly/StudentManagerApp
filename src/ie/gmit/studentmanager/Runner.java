@@ -112,6 +112,7 @@ public class Runner extends Application{
 					resultsText += "First Name: " + searchStudent.getFirstName() + "\n";
 					resultsText += "Last Name " + searchStudent.getLastName() + "\n";
 					resultsText += "Date of Birth: " + searchStudent.getDob() + "\n";
+					resultsText += "Age: " + searchStudent.getAge() + "\n";
 					
 					//Set the results text to the outputText area
 					outputText.setText(resultsText);
