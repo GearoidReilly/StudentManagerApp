@@ -103,6 +103,9 @@ public class Runner extends Application{
 				
 				//If we found a student
 				if(searchStudent != null) {
+					//Calculate the age of the found student
+					//Better to do this now taking a loaded database into account
+					searchStudent.setAge(searchStudent.calculateAge(searchStudent.getDob()));
 					//String to contain student details
 					String resultsText = "";
 					
