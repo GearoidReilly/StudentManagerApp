@@ -9,10 +9,13 @@ import javafx.scene.text.*;
 import javafx.geometry.*;
 import java.time.*;
 import java.util.*;
+import java.io.*;
 
 //Runner class now inherits from JavaFx Application class
-public class Runner extends Application{
+public class Runner extends Application implements Serializable{
 
+	//SerialVersionUID to maintain serialization integrity
+	private static final long serialVersionUID = 1L;
 	//Student Manager variable
 	StudentManager sm = new StudentManager();
 	//Scene variables
@@ -23,7 +26,7 @@ public class Runner extends Application{
 	
 	//Overrides start function in application
 	@Override
-	public void start(Stage primaryStage) throws Exception{
+	public void start(Stage primaryStage){
 		//Create secondary stage
 		Stage secondaryStage = new Stage();
 				
@@ -40,6 +43,39 @@ public class Runner extends Application{
 		//Set spacing between objects on the main grid pane
 		mainGridPane.setHgap(30);
 		mainGridPane.setVgap(30);
+		
+		/* Load database functionality */
+		//Create loadDBButton
+		Button loadDBButton = new Button("Load DB");
+		//Create dbPathText text field
+		TextField dbPathText = new TextField();
+		//Prompt user to enter database path to load
+		dbPathText.setPromptText("Enter Database Path");
+		//Add functionality to loadDBButton
+		loadDBButton.setOnAction(e -> {
+			//If the database path text is empty
+			if (dbPathText.getText().trim().equals("")) {
+				//Tell the user to enter a path
+				outputText.appendText("Please enter path to DB\n");
+			} else {
+				//Load the database from student manager
+				sm = sm.loadDB(dbPathText.getText());
+				//If the student manager is null
+				if (sm == null) {
+					//Tell the user there is no valid database path
+					outputText.setText("ERROR: DB path " + dbPathText.getText() + " does not exist\n");
+					//Prompt user to enter a database path
+					outputText.appendText("Please check DB path and try again");
+					//Clear the dbPathText
+					dbPathText.clear();
+				} else {
+					//Inform the user the database was loaded successfully
+					outputText.setText("DB loaded successfully from " + dbPathText.getText());
+					//Clear the database path text
+					dbPathText.clear();
+				}
+			}
+		});
 		
 		/* Add student functionality */
 		//Create addButton
@@ -172,6 +208,33 @@ public class Runner extends Application{
 			outputText.setText("Total number of students: " + totalStudents);
 		});
 		
+		/* Save database functionality */
+		//Create saveDBButton
+		Button saveDBButton = new Button("Save DB");
+		//Add functionality to saveDBButton
+		saveDBButton.setOnAction(e -> {
+			//Attempt to save the database
+			try {
+				//Create a new Object output stream containing a new file output stream
+				//The file in the file stream will store the database
+	    		ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("studentsDB.ser"));
+	    		//Write the student manager to the object output stream
+	    		out.writeObject(sm);
+	    		//Close the object output stream
+	    		out.close();
+	    		//Inform the user the database was saved successfully
+	    		outputText.setText("Student Database Saved");
+	    	}
+			//If there is an error saving the database
+			catch (Exception exception) {
+				//Print the error to the console
+	    		System.out.print("[Error] Cannont save DB. Cause: ");
+	    		exception.printStackTrace();
+	    		//Inform the user that there was an error saving the database
+	    		outputText.setText("ERROR: Failed to save Students DB!");
+	    	}
+		});
+		
 		/* Quit functionality */
 		//Create quitButton
 		Button quitButton = new Button("Quit Student Manager");
@@ -183,22 +246,25 @@ public class Runner extends Application{
 		
 		//Adds content to the mainGridPane
 		mainGridPane.add(headerText, 0, 0);
-		mainGridPane.add(addButton, 0, 1);
-		mainGridPane.add(deleteButton, 0, 2);
-		mainGridPane.add(deleteLabel, 1, 2);
-		mainGridPane.add(deleteText, 2, 2);
-		mainGridPane.add(searchByIdButton, 0, 3);
-		mainGridPane.add(searchByIdLabel, 1, 3);
-		mainGridPane.add(searchByIdText, 2, 3);
-		mainGridPane.add(searchByNameButton, 0, 4);
-		mainGridPane.add(searchByNameLabel, 1, 4);
-		mainGridPane.add(searchByNameText, 2, 4);
-		mainGridPane.add(showTotalButton, 0, 5);
-		mainGridPane.add(quitButton, 0, 6);
-		mainGridPane.add(outputText, 0, 7, 3, 1);
+		mainGridPane.add(loadDBButton, 0, 1);
+		mainGridPane.add(dbPathText, 2, 1);
+		mainGridPane.add(addButton, 0, 2);
+		mainGridPane.add(deleteButton, 0, 3);
+		mainGridPane.add(deleteLabel, 1, 3);
+		mainGridPane.add(deleteText, 2, 3);
+		mainGridPane.add(searchByIdButton, 0, 4);
+		mainGridPane.add(searchByIdLabel, 1, 4);
+		mainGridPane.add(searchByIdText, 2, 4);
+		mainGridPane.add(searchByNameButton, 0, 5);
+		mainGridPane.add(searchByNameLabel, 1, 5);
+		mainGridPane.add(searchByNameText, 2, 5);
+		mainGridPane.add(showTotalButton, 0, 6);
+		mainGridPane.add(quitButton, 0, 7);
+		mainGridPane.add(saveDBButton, 0, 8);
+		mainGridPane.add(outputText, 0, 9, 3, 1);
 		
 		//Adds values to the mainStage
-		mainScene = new Scene(mainGridPane, 700, 600);
+		mainScene = new Scene(mainGridPane, 1000, 800);
 		
 		//Set the title to primary stage
 		primaryStage.setTitle("Student Manager");

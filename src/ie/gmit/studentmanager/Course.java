@@ -1,6 +1,8 @@
 package ie.gmit.studentmanager;
 
-public class Course {
+import java.io.Serializable;
+
+public class Course implements Serializable{
 	//Instance variables
 	private String courseCode;	//course code
 	private String courseName;	//course name

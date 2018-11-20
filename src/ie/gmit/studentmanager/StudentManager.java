@@ -1,12 +1,15 @@
 package ie.gmit.studentmanager;
 
 import java.util.*;
+import java.io.*;
 
-public class StudentManager {
+public class StudentManager implements Serializable{
 	//Static variables will be the same value for all instances of a class
 	//Final variables cannot be changed, operates like constant variables
 	//private static final int INITIAL_CAPACITY = 10;	//Sets the capacity of the Student manager
 	
+	//SerialVersionUID to maintain serialization integrity
+	private static final long serialVersionUID = 1L;
 	//Instance variables
 	List<Student> students;	//list of students
 	
@@ -108,4 +111,22 @@ public class StudentManager {
 		//Return the number of elements in students
 		return students.size();
 	}
+	
+	/**
+	 * Loads the student data from a database
+	 * @param dbPath Data file to load
+	 * @return Student Manager with loaded data
+	 */
+	public StudentManager loadDB(String dbPath){
+    	StudentManager sm = null;
+    	try {
+			ObjectInputStream in = new ObjectInputStream(new FileInputStream(dbPath));
+			sm = (StudentManager) in.readObject();
+    		in.close();
+    	} catch (Exception e) {
+    		System.out.print("[Error] Cannont load DB. Cause: ");
+    		e.printStackTrace();
+    	}
+		return sm;
+    }
 }

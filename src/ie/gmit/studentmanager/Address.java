@@ -1,6 +1,8 @@
 package ie.gmit.studentmanager;
 
-public class Address {
+import java.io.Serializable;
+
+public class Address implements Serializable{
 	//Instance variables
 	private int houseNumber;	//House number
 	private String street;		//Street name
