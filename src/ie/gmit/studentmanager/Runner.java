@@ -108,10 +108,14 @@ public class Runner extends Application implements Serializable{
 				if(result) {
 					//Informs the user the student was deleted
 					outputText.setText("Successfully deleted student: " + deleteId + ".");
+					//Clear the deleteText text field
+					deleteText.clear();
 				}
 				else {
 					//Informs user that the student couldn't be deleted
 					outputText.setText("Student couldn't be deleted.");
+					//Clear the deleteText text field
+					deleteText.clear();
 				}
 			}
 		});
@@ -155,6 +159,8 @@ public class Runner extends Application implements Serializable{
 					
 					//Set the results text to the outputText area
 					outputText.setText(resultsText);
+					//Clear the searchById text field
+					searchByIdText.clear();
 				}
 				else {
 					//Inform user no student was found
@@ -188,10 +194,14 @@ public class Runner extends Application implements Serializable{
 				if(resultsList != null) {
 					//Inform the user how many students were found
 					outputText.setText("Found " + resultsList.size() + " students with the name " + searchName + ".");
+					//Clear the searchByName text
+					searchByNameText.clear();
 				}
 				else {
 					//Inform the user no students were found
 					outputText.setText("No students found.");
+					//Clear the searchByName text
+					searchByNameText.clear();
 				}
 			}
 		});
@@ -259,8 +269,8 @@ public class Runner extends Application implements Serializable{
 		mainGridPane.add(searchByNameLabel, 1, 5);
 		mainGridPane.add(searchByNameText, 2, 5);
 		mainGridPane.add(showTotalButton, 0, 6);
-		mainGridPane.add(quitButton, 0, 7);
-		mainGridPane.add(saveDBButton, 0, 8);
+		mainGridPane.add(saveDBButton, 0, 7);
+		mainGridPane.add(quitButton, 0, 8);
 		mainGridPane.add(outputText, 0, 9, 3, 1);
 		
 		//Adds values to the mainStage
