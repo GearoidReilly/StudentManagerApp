@@ -120,7 +120,7 @@ public class StudentManager implements Serializable{
 	public StudentManager loadDB(String dbPath){
     	StudentManager sm = null;
     	try {
-			ObjectInputStream in = new ObjectInputStream(new FileInputStream(dbPath));
+			ObjectInputStream in = new ObjectInputStream(new FileInputStream(dbPath + ".ser"));
 			sm = (StudentManager) in.readObject();
     		in.close();
     	} catch (Exception e) {

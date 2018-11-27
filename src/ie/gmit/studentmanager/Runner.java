@@ -221,19 +221,28 @@ public class Runner extends Application implements Serializable{
 		/* Save database functionality */
 		//Create saveDBButton
 		Button saveDBButton = new Button("Save DB");
+		//Create dbPathText text field
+		TextField saveDbPathText = new TextField();
+		//Prompt user to enter database path to load
+		saveDbPathText.setPromptText("Enter Database Path");
 		//Add functionality to saveDBButton
 		saveDBButton.setOnAction(e -> {
 			//Attempt to save the database
 			try {
-				//Create a new Object output stream containing a new file output stream
-				//The file in the file stream will store the database
-	    		ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("studentsDB.ser"));
-	    		//Write the student manager to the object output stream
-	    		out.writeObject(sm);
-	    		//Close the object output stream
-	    		out.close();
-	    		//Inform the user the database was saved successfully
-	    		outputText.setText("Student Database Saved");
+				if(saveDbPathText.getText().trim().equals("")) {
+					outputText.appendText("Please enter a database path");
+				}
+				else {
+					//Create a new Object output stream containing a new file output stream
+					//The file in the file stream will store the database
+		    		ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(saveDbPathText.getText() + ".ser"));
+		    		//Write the student manager to the object output stream
+		    		out.writeObject(sm);
+		    		//Close the object output stream
+		    		out.close();
+		    		//Inform the user the database was saved successfully
+		    		outputText.setText("Student Database Saved");
+				}
 	    	}
 			//If there is an error saving the database
 			catch (Exception exception) {
@@ -270,6 +279,7 @@ public class Runner extends Application implements Serializable{
 		mainGridPane.add(searchByNameText, 2, 5);
 		mainGridPane.add(showTotalButton, 0, 6);
 		mainGridPane.add(saveDBButton, 0, 7);
+		mainGridPane.add(saveDbPathText, 2, 7);
 		mainGridPane.add(quitButton, 0, 8);
 		mainGridPane.add(outputText, 0, 9, 3, 1);
 		
